@@ -18,13 +18,15 @@ export const Form = ({getData}) => {
     const [list, setList] = useState([]);
 
     const handleChange = (e) => {
-        console.log(e.target.Title, e.target.value)
+        //console.log(e.target.Title, e.target.value)
         const {Title, value} = e.target;
 
         setFrom({
             ...form,
             [Title] : value
+
         })
+        //console.log(setFrom)                                                          
     }
 
     const handleSubmit = (data) => {
@@ -40,8 +42,20 @@ export const Form = ({getData}) => {
         getData(form)
 
         console.log("list", list)
-        console.log("form", form)
+        console.log("form", form.value)
     }
+
+    if(localStorage.getItem({form}) == null){
+        localStorage.setItem({form}, JSON.stringify([]));
+    }
+
+    let storedData = {
+        form
+    }
+
+    let Arr = JSON.parse(localStorage.getItem({form}))
+    Arr.push(storedData)
+    localStorage.setItem({form}, JSON.stringify(Arr))
 
     return (
         <>
@@ -57,5 +71,7 @@ export const Form = ({getData}) => {
 
         </>
     )
+
+    
 }
 
